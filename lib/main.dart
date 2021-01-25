@@ -1,6 +1,7 @@
+import 'package:chat_app/Views/signup.dart';
 import 'package:flutter/material.dart';
 
-import 'Views/signin.dart';
+
 
 void main() {
   runApp(MyApp());
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
             headline3: TextStyle(fontSize: 16, fontWeight: FontWeight.normal, color: Colors.black),
       ),
       ),
-      home: SignIn(),
+      home: SignUp(),
     );
   }
 }
