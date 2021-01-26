@@ -2,14 +2,15 @@ import 'package:chat_app/Widgets/widget.dart';
 import 'package:flutter/material.dart';
 
 class SignIn extends StatefulWidget {
+
+final Function toggle;
+SignIn(this.toggle);
+
   @override
   _SignInState createState() => _SignInState();
 }
 
 class _SignInState extends State<SignIn> {
-
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -109,7 +110,13 @@ class _SignInState extends State<SignIn> {
                     "Don't have an account? ",
                     style: Theme.of(context).textTheme.headline3,
                   ),
-                  Text(
+                  GestureDetector(
+                    onTap: (){
+                      widget.toggle();
+                      },                   
+                  child:Container(
+                    padding: EdgeInsets.symmetric(vertical: 8),
+                  child: Text(
                     "Register now",
                     style: TextStyle(
                       color: Colors.black,
@@ -117,6 +124,8 @@ class _SignInState extends State<SignIn> {
                       decoration: TextDecoration.underline,
                     ),
                   ),
+                  ),
+              ),
                 ],
               ),
             ],

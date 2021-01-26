@@ -1,8 +1,13 @@
 import 'package:chat_app/Services/auth.dart';
+import 'package:chat_app/Views/chatRoomsScreen.dart';
 import 'package:chat_app/Widgets/widget.dart';
 import 'package:flutter/material.dart';
 
 class SignUp extends StatefulWidget {
+
+final Function toggle;
+SignUp(this.toggle);
+
   @override
   _SignUpState createState() => _SignUpState();
 }
@@ -27,7 +32,10 @@ class _SignUpState extends State<SignUp> {
       
       authMethods.signUpWithEmailAndPassword(eMailTextEditingController.text, 
       passwordTextEditingController.text).then((val){
-        print("$val");
+       // print("${val.uid}");
+
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> ChatRoom()));
+
       });
   }
   }
@@ -167,7 +175,13 @@ class _SignUpState extends State<SignUp> {
                     "Already have an account? ",
                     style: Theme.of(context).textTheme.headline3,
                   ),
-                  Text(
+                  GestureDetector(
+                    onTap: (){
+                      widget.toggle();
+                      },               
+                  child: Container(
+                     padding: EdgeInsets.symmetric(vertical: 8),
+                  child: Text(
                     "Sign In now",
                     style: TextStyle(
                       color: Colors.black,
@@ -175,6 +189,9 @@ class _SignUpState extends State<SignUp> {
                       decoration: TextDecoration.underline,
                     ),
                   ),
+              ),
+          ),
+
                 ],
               ),
             ],
