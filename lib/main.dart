@@ -1,5 +1,4 @@
 import 'package:chat_app/Helper/authentication.dart';
-import 'package:chat_app/Views/chatRoomsScreen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -26,7 +25,7 @@ class MyApp extends StatelessWidget {
             headline3: TextStyle(fontSize: 16, fontWeight: FontWeight.normal, color: Colors.black),
       ),
       ),
-      home: ChatRoom() /*Authentication()*/,
+      home: Authentication(),
     );
   }
 }

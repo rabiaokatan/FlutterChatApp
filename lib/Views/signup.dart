@@ -1,4 +1,5 @@
 import 'package:chat_app/Services/auth.dart';
+import 'package:chat_app/Services/database.dart';
 import 'package:chat_app/Views/chatRoomsScreen.dart';
 import 'package:chat_app/Widgets/widget.dart';
 import 'package:flutter/material.dart';
@@ -21,10 +22,17 @@ class _SignUpState extends State<SignUp> {
   TextEditingController eMailTextEditingController =new TextEditingController();
   TextEditingController passwordTextEditingController =new TextEditingController();
 
-  AuthMethods authMethods =new AuthMethods();
+  AuthMethods authMethods = new AuthMethods();
+  DatabaseMethods databaseMethods = new DatabaseMethods();
 
   signMeUp(){
     if(formKey.currentState.validate()){
+      // for cloudstore user collections
+       Map<String, String> userInfoMap = {
+          "name" :userNameTextEditingController.text,
+          "email":eMailTextEditingController.text,
+        };
+
       setState(() {
 
           isLoading = true;
@@ -34,6 +42,7 @@ class _SignUpState extends State<SignUp> {
       passwordTextEditingController.text).then((val){
        // print("${val.uid}");
 
+        databaseMethods.uploadUserInfo(userInfoMap);
         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> ChatRoom()));
 
       });
