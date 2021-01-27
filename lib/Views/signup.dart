@@ -1,3 +1,4 @@
+import 'package:chat_app/Helper/sharedprefencefunctions.dart';
 import 'package:chat_app/Services/auth.dart';
 import 'package:chat_app/Services/database.dart';
 import 'package:chat_app/Views/chatRoomsScreen.dart';
@@ -27,22 +28,26 @@ class _SignUpState extends State<SignUp> {
 
   signMeUp(){
     if(formKey.currentState.validate()){
-      // for cloudstore user collections
+      // for cloudstore/firestore user collections
        Map<String, String> userInfoMap = {
           "name" :userNameTextEditingController.text,
           "email":eMailTextEditingController.text,
         };
+
+        SharedPreferenceFunctions.saveUserEmailSharedPreference(eMailTextEditingController.text.trim());
+        SharedPreferenceFunctions.saveUserEmailSharedPreference(userNameTextEditingController.text);
 
       setState(() {
 
           isLoading = true;
       });
       
-      authMethods.signUpWithEmailAndPassword(eMailTextEditingController.text, 
+      authMethods.signUpWithEmailAndPassword(eMailTextEditingController.text.trim(), 
       passwordTextEditingController.text).then((val){
        // print("${val.uid}");
 
         databaseMethods.uploadUserInfo(userInfoMap);
+        SharedPreferenceFunctions.saveUserLoggedInSharedPreference(true);
         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> ChatRoom()));
 
       });
