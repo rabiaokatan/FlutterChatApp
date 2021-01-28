@@ -46,4 +46,10 @@ return await FirebaseFirestore.instance.collection("ChatRoom")
 .collection("chats").orderBy("time").snapshots();
 }
 
+getChatRoom(String userName) async{
+return await FirebaseFirestore.instance.collection("ChatRoom")
+.where("users", arrayContains:userName)
+.snapshots();
+}
+
 }

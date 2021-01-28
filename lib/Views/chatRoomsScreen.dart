@@ -2,6 +2,8 @@ import 'package:chat_app/Helper/authentication.dart';
 import 'package:chat_app/Helper/constants.dart';
 import 'package:chat_app/Helper/sharedprefencefunctions.dart';
 import 'package:chat_app/Services/auth.dart';
+import 'package:chat_app/Services/database.dart';
+import 'package:chat_app/Views/conversationScreen.dart';
 import 'package:chat_app/Views/search.dart';
 import 'package:flutter/material.dart';
 
@@ -10,11 +12,28 @@ class ChatRoom extends StatefulWidget {
   _ChatRoomState createState() => _ChatRoomState();
 }
 
-
-
 class _ChatRoomState extends State<ChatRoom> {
 
 AuthMethods authMethods = new AuthMethods();
+DatabaseMethods databaseMethods = new DatabaseMethods();
+
+//i used .snapshot() from database.dart side so i should use stream here
+Stream streamChatRooms;
+
+Widget chatRoomList(){
+return StreamBuilder(stream: streamChatRooms,
+    builder:(context , snapshot){
+      return snapshot.hasData ? ListView.builder(
+        itemCount: snapshot.data.docs.length,
+        itemBuilder: (context, index) {
+                  return ChatRoomsListView(
+                      snapshot.data.docs[index].data()["chatroomId"]
+                      .toString().replaceAll("_", "").replaceAll(Constants.myName, ""),
+                      snapshot.data.docs[index].data()["chatroomId"]
+                      );
+                }) : Container();
+    });
+}
 
 @override
   void initState() {
@@ -24,9 +43,11 @@ AuthMethods authMethods = new AuthMethods();
 
   getUserInfo() async{
     Constants.myName= await SharedPreferenceFunctions.getUserNameSharedPreference();
-    setState(() {
-      
-    });
+    databaseMethods.getChatRoom(Constants.myName).then((value){
+     setState(() {
+       streamChatRooms =value;
+     });
+   });
   }
   @override
   Widget build(BuildContext context) {
@@ -46,6 +67,8 @@ AuthMethods authMethods = new AuthMethods();
           ),
         ],
       ),
+      body: chatRoomList(),
+      backgroundColor: Color(0xffF3EFEE),
     floatingActionButton: FloatingActionButton(
       child: Icon(Icons.search),
       onPressed: (){

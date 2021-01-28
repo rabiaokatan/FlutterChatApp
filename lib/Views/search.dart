@@ -68,6 +68,11 @@ if(userName != Constants.myName){
 Widget searchTile({String userName, String userEmail}){
 return Container(
       padding: EdgeInsets.symmetric(horizontal:24, vertical:16),
+      decoration: BoxDecoration(
+      border: Border(
+      bottom: BorderSide(width: 1.0, color: Colors.black26,),
+      top:BorderSide(width: 1.0, color: Colors.black26,),),
+      ),
       child: Row(
         children: [
           Column(

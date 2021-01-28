@@ -137,7 +137,7 @@ class MessageShape extends StatelessWidget {
       margin: EdgeInsets.symmetric(vertical:6),
       width: MediaQuery.of(context).size.width,
       alignment: isSendByMe ? Alignment.centerRight : Alignment.centerLeft,
-     // child: SingleChildScrollView(
+
       child: Container(
         padding: EdgeInsets.symmetric(horizontal:20, vertical:12),
         decoration: BoxDecoration(
@@ -169,7 +169,49 @@ class MessageShape extends StatelessWidget {
             color: Colors.black54)
             ),
       ),
-     // ),
+    );
+  }
+}
+
+class ChatRoomsListView extends StatelessWidget {
+
+  final String userName;
+  final String chatRoomId;
+  ChatRoomsListView(this.userName,this.chatRoomId);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+    onTap: (){
+      Navigator.push(context, MaterialPageRoute(
+        builder: (context) => ConversationScreen(chatRoomId)
+      ),);
+    },
+    child: Container(
+      padding: EdgeInsets.symmetric(horizontal:20, vertical:12),
+      decoration: BoxDecoration(
+      border: Border(
+      bottom: BorderSide(width: 1.0, color: Colors.black26,),),
+      ),
+      child: Row(
+        children: [
+          Container(
+            height: 40,
+            width: 40,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: Colors.deepPurple,
+              borderRadius: BorderRadius.circular(40),
+              
+              ),
+               child: Text("${userName.substring(0,1).toUpperCase()}",
+               style: Theme.of(context).textTheme.headline1,
+               ),
+          ),
+          SizedBox(width: 8),
+          Text(userName, style: Theme.of(context).textTheme.headline2),
+      ],),   
+    ), 
     );
   }
 }
