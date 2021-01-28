@@ -44,10 +44,10 @@ class _SearchScreenState extends State<SearchScreen> {
 
 createChatRoomAndStartConversation({String userName}){
 
+//print("${Constants.myName}");
 if(userName != Constants.myName){
  
-
-   String _chatRoomId=getChatRoomId(userName, Constants.myName);
+   String _chatRoomId=getChatRoomId(userName,Constants.myName  );
     List<String> users = [userName, Constants.myName];
 
   Map<String, dynamic> chatRoomMap ={
@@ -58,7 +58,7 @@ if(userName != Constants.myName){
   DatabaseMethods().createChatRoom(_chatRoomId, chatRoomMap);
 
   Navigator.push(context, MaterialPageRoute(
-    builder: (context) => ConversationScreen() ),);
+    builder: (context) => ConversationScreen(_chatRoomId) ),);
 }else{
   print("You can't send message to yourself.");
 }
@@ -99,6 +99,8 @@ return Container(
       ),
     );
 }
+  
+
   @override
   void initState() {
     super.initState();
@@ -109,11 +111,15 @@ return Container(
     return Scaffold(
       appBar: appBarMain(context),
       body: Container(
+        padding: EdgeInsets.symmetric(vertical:8),
         child: Column(
           children: [
             Container(
               padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-              color: /*Color(0xFFD1C4E9),*/ Color(0xFFB39DDB),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50),
+                  color: Color(0xFFB39DDB),  
+                ),
               child: Row(
                 children: [
                   Expanded(
@@ -123,7 +129,7 @@ return Container(
                         color: Colors.white,
                       ),
                       decoration: InputDecoration(
-                        hintText: "search username...",
+                        hintText: "Search username...",
                         hintStyle: TextStyle(
                           color: Colors.white,
                           fontSize: 16,
@@ -167,7 +173,7 @@ return Container(
 }
 
 getChatRoomId(String a, String b) {
-    if (a.compareTo(b)>0) /*(a.substring(0, 1).codeUnitAt(0) > b.substring(0, 1).codeUnitAt(0))*/ {
+    if /*(a.compareTo(b)>0)*/ (a.substring(0, 1).codeUnitAt(0) > b.substring(0, 1).codeUnitAt(0)){
       return "$b\_$a";
     } else {
       return "$a\_$b";

@@ -10,7 +10,7 @@ class ChatRoom extends StatefulWidget {
   _ChatRoomState createState() => _ChatRoomState();
 }
 
-String _myName;
+
 
 class _ChatRoomState extends State<ChatRoom> {
 
@@ -18,16 +18,16 @@ AuthMethods authMethods = new AuthMethods();
 
 @override
   void initState() {
-   //getUserInfo();
+   getUserInfo();
     super.initState();
   }
 
-  /*getUserInfo() async{
-    _myName= await SharedPreferenceFunctions.getUserNameSharedPreference();
+  getUserInfo() async{
+    Constants.myName= await SharedPreferenceFunctions.getUserNameSharedPreference();
     setState(() {
       
     });
-  }*/
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

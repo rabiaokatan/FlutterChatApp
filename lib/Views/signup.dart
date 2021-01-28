@@ -35,7 +35,7 @@ class _SignUpState extends State<SignUp> {
         };
 
         SharedPreferenceFunctions.saveUserEmailSharedPreference(eMailTextEditingController.text.trim());
-        SharedPreferenceFunctions.saveUserEmailSharedPreference(userNameTextEditingController.text);
+        SharedPreferenceFunctions.saveUserNameSharedPreference(userNameTextEditingController.text);
 
       setState(() {
 
