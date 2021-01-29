@@ -1,11 +1,11 @@
 import 'package:chat_app/Helper/constants.dart';
 import 'package:chat_app/Services/database.dart';
-import 'package:chat_app/Widgets/widget.dart';
 import 'package:flutter/material.dart';
 
 class ConversationScreen extends StatefulWidget {
   final String chatRoomId;
-  ConversationScreen(this.chatRoomId);
+  final String userName;
+  ConversationScreen(this.chatRoomId,this.userName);
   @override
   _ConversationScreenState createState() => _ConversationScreenState();
 }
@@ -59,7 +59,9 @@ class _ConversationScreenState extends State<ConversationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBarMain(context),
+      appBar: AppBar(
+        title: Text("${widget.userName}"),
+      ),
       body: Container(
         color: Color(0xffF3EFEE),
         child: Stack(
@@ -184,7 +186,7 @@ class ChatRoomsListView extends StatelessWidget {
     return GestureDetector(
     onTap: (){
       Navigator.push(context, MaterialPageRoute(
-        builder: (context) => ConversationScreen(chatRoomId)
+        builder: (context) => ConversationScreen(chatRoomId,userName)
       ),);
     },
     child: Container(

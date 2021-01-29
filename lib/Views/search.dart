@@ -58,7 +58,7 @@ if(userName != Constants.myName){
   DatabaseMethods().createChatRoom(_chatRoomId, chatRoomMap);
 
   Navigator.push(context, MaterialPageRoute(
-    builder: (context) => ConversationScreen(_chatRoomId) ),);
+    builder: (context) => ConversationScreen(_chatRoomId, userName) ),);
 }else{
   print("You can't send message to yourself.");
 }

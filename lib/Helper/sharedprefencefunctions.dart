@@ -22,12 +22,6 @@ class SharedPreferenceFunctions{
     return await preferences.setString(sharedPreferenceUserEmailKey, userEmail);
   }
 
-  /// fetching data from shared preference
-  static Future<bool> getUserLoggedInSharedPreference() async{
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    return await preferences.getBool(sharedPreferenceUserLoggedInKey);
-  }
-
   static Future<String> getUserNameSharedPreference() async{
     SharedPreferences preferences = await SharedPreferences.getInstance();
     return await preferences.getString(sharedPreferenceUserNameKey);

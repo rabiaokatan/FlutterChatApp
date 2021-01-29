@@ -107,9 +107,9 @@ class _SignUpState extends State<SignUp> {
               ),
           ),
               SizedBox(
-                height: 8,
+                height: 20,
               ),
-              Container(
+             /* Container(
                 alignment: Alignment.centerRight,
                 child: Container(
                   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 15),
@@ -119,7 +119,7 @@ class _SignUpState extends State<SignUp> {
               ),
               SizedBox(
                 height: 8,
-              ),
+              ),*/
               GestureDetector(
                 onTap: (){
                 signMeUp();
@@ -155,7 +155,7 @@ class _SignUpState extends State<SignUp> {
               SizedBox(
                 height: 20,
               ),
-              Container(
+             /* Container(
                 alignment: Alignment.center,
                 width: MediaQuery.of(context).size.width,
                 padding: EdgeInsets.symmetric(
@@ -181,7 +181,7 @@ class _SignUpState extends State<SignUp> {
               ),
               SizedBox(
                 height: 20,
-              ),
+              ),*/
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

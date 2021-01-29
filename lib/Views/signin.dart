@@ -4,6 +4,7 @@ import 'package:chat_app/Services/database.dart';
 import 'package:chat_app/Views/chatRoomsScreen.dart';
 import 'package:chat_app/Widgets/widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class SignIn extends StatefulWidget {
@@ -26,6 +27,7 @@ class _SignInState extends State<SignIn> {
   QuerySnapshot snapshotUserInfo;
 
   signIn(){
+    try{
     if(formKey.currentState.validate()){
 
       SharedPreferenceFunctions.saveUserEmailSharedPreference(eMailTextEditingController.text.trim());
@@ -48,10 +50,20 @@ class _SignInState extends State<SignIn> {
         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> ChatRoom()));
       }
       
-      });
-      
-      
+      });    
+    }}
+    on FirebaseAuthException catch (e) {
+      debugPrint(e.toString());
+      Scaffold.of(context).showSnackBar(SnackBar(
+        content: Text("${e.message}"),
+      ));
+    } catch (e) {
+      debugPrint(e.toString());
+      Scaffold.of(context).showSnackBar(SnackBar(
+        content: Text("There was a problem logging in with Email & Password"),
+      ));
     }
+    
   }
 
   @override
@@ -94,9 +106,9 @@ class _SignInState extends State<SignIn> {
                 ),
               ),
               SizedBox(
-                height: 8,
+                height: 20,
               ),
-              Container(
+             /* Container(
                 alignment: Alignment.centerRight,
                 child: Container(
                   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 15),
@@ -106,7 +118,7 @@ class _SignInState extends State<SignIn> {
               ),
               SizedBox(
                 height: 8,
-              ),
+              ),*/
               GestureDetector(
                 onTap: (){
                   signIn();
@@ -142,7 +154,7 @@ class _SignInState extends State<SignIn> {
               SizedBox(
                 height: 20,
               ),
-              Container(
+             /* Container(
                 alignment: Alignment.center,
                 width: MediaQuery.of(context).size.width,
                 padding: EdgeInsets.symmetric(
@@ -168,7 +180,7 @@ class _SignInState extends State<SignIn> {
               ),
               SizedBox(
                 height: 20,
-              ),
+              ),*/
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
